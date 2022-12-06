@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var aa = Game("divinity","98","rpg","metacritic",null)
-        var bb = Game("gtav","96","action","metacritic",null)
+        var bb = Game("Life is Strange","100","lesbian love","metacritic",null)
         var cc = Game("gtav","96","action","metacritic",null)
         var dd = Game("gtav","96","action","metacritic",null)
         var ee = Game("gtav","96","action","metacritic",null)
@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         val games = arrayOf(
             aa,bb,cc,dd,ee,ff,gg
         )
+
         var customAdapter = CustomAdapter(games)
 
         var myRecyclerView = findViewById<RecyclerView>(R.id.gamesList)
@@ -29,4 +30,5 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 }
