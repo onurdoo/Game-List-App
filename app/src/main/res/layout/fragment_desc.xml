@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- UI for Detailed page -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.DescFragment">
+
+    <!-- Game Image -->
+    <ImageView
+        android:id="@+id/detailedIm"
+        android:layout_width="match_parent"
+        android:layout_height="291dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="88dp"
+
+        android:contentDescription="Game Resized Image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!-- Rectangle -->
+    <View
+        android:id="@+id/rectangle_1"
+        android:layout_width="match_parent"
+        android:layout_height="192dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rectangle"
+        app:layout_constraintBottom_toBottomOf="@+id/detailedIm"
+        app:layout_constraintEnd_toEndOf="@+id/gameName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/detailedIm"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+    <!-- Back Button -->
+    <LinearLayout
+        android:id="@+id/backButton"
+        android:layout_width="94dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="32dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/detailedIm"
+        app:layout_constraintEnd_toStartOf="@+id/addFav"
+
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <!-- arrow -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/arrow">
+
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text=" Games"
+            android:textAlignment="textEnd"
+            android:textColor="#007AFF"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/detailedIm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+
+    <!-- Favourite Button -->
+    <LinearLayout
+        android:id="@+id/addFav"
+        android:layout_width="94dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="44dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/detailedIm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/favoriteText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Favourite"
+            android:textColor="#007AFF"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/detailedIm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+    <!-- Game Title -->
+    <TextView
+        android:id="@+id/gameName"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="99dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="right|bottom"
+        android:text="OYUN"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="@+id/detailedIm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/detailedIm"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <!-- Game Description -->
+    <LinearLayout
+        android:id="@+id/desclinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailedIm"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-15dp">
+
+        <TextView
+            android:id="@+id/detTitle"
+            android:layout_width="344dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginVertical="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Game Description"
+            android:textColor="#313131"
+            android:textSize="22sp" />
+
+
+        <TextView
+            android:id="@+id/gameDesc"
+            android:layout_width="343dp"
+            android:layout_height="65dp"
+            android:layout_marginVertical="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Aciklama"
+            android:textColor="#313131"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/reddit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/desclinear"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <LinearLayout
+        android:id="@+id/reddit"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        app:layout_constraintTop_toBottomOf="@+id/desclinear"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:layout_width="343dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="36dp"
+            android:text="Visit Reddit"
+            android:textColor="#313131"
+            android:textSize="17sp"
+
+            />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/website"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reddit"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:id="@+id/website"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reddit"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:layout_width="343dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="36dp"
+            android:text="Visit Website"
+            android:textColor="#313131"
+            android:textSize="17sp"
+
+            />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/website"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

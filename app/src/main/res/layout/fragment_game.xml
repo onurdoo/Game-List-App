@@ -1,50 +1,147 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!-- UI for Home Page -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameFragment">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context=".view.GameFragment">
 
-    <TextView
-        android:id="@+id/gameTab"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:gravity="bottom"
-        android:text="Games"
-        android:textColor="#000000"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        android:translationY="-0.21sp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="9dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Page Title -->
+        <TextView
+            android:id="@+id/gameTab"
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="504dp"
+            android:gravity="bottom"
+            android:text="Games"
+            android:textColor="#000000"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            android:translationY="-0.21sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <!-- Search Bar -->
+        <LinearLayout
+            android:id="@+id/linearLayoutSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameTab">
+
+            <SearchView
+
+                android:id="@+id/gameSearchBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_search_bar"
+
+                app:layout_constraintTop_toBottomOf="@+id/gameTab"
+                tools:layout_editor_absoluteX="9dp" />
+        </LinearLayout>
+
+        <!-- Bottom Nav Bar layout -->
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/border"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Games Page Button -->
+            <LinearLayout
+                android:id="@+id/gameButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+
+                android:layout_weight="0.5"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="0dp"
+                    android:src="@drawable/ic_controller_in">
 
 
+                </ImageView>
 
-    <SearchView
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="Games"
+                    android:textColor="#1064BC" />
+            </LinearLayout>
 
-        android:id="@+id/gameSearchBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/rounded_search_bar"
 
-        />
+            <!-- Favourite Page Button -->
+            <LinearLayout
+                android:id="@+id/favButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/gamesList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="107dp">
+                android:layout_weight="0.5"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical">
 
-    </androidx.recyclerview.widget.RecyclerView>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="0dp"
+                    android:src="@drawable/ic_star">
 
-</LinearLayout>
 
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="Favorites" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Layout for List -->
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutSearch">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/gamesList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>

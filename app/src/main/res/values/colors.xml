@@ -11,4 +11,7 @@
     <color name="genreTextcolor">#8A8A8F</color>
     <color name="aa" >#E0E0E0</color>
     <color name="red">#FF0000</color>
+    <color name="divider">#F8F8F8</color>
+    <color name="favBack">#E5E5E5</color>
+    <color name="Back">#E5E5E5</color>
 </resources>

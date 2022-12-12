@@ -1,41 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- UI for Favourite page -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameFragment">
-    <LinearLayout
+    tools:context=".view.FavoritesFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:backgroundTint="@color/divider">
 
+        <!-- Page Title -->
         <TextView
-            android:id="@+id/gameTab"
+            android:id="@+id/gameTabFav"
             android:layout_width="match_parent"
             android:layout_height="140dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/divider"
             android:gravity="bottom"
             android:text="Favorites"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="#000000"
             android:textSize="34sp"
             android:textStyle="bold"
             android:translationY="-0.21sp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginBottom="9dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Bottom Nav Bar layout -->
+        <LinearLayout
 
-
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/favGamesList"
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="-16dp"
-            tools:layout_editor_absoluteY="107dp">
+            android:layout_height="80dp"
+            android:background="@drawable/border"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+            <!-- Games Page Button -->
+            <LinearLayout
+                android:id="@+id/gameButtonFav"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
 
-        </androidx.recyclerview.widget.RecyclerView>
+                android:layout_weight="0.5"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical">
 
-    </LinearLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_controller">
+
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="Games" />
+            </LinearLayout>
+
+
+            <!-- Favourite Page Button -->
+            <LinearLayout
+                android:id="@+id/favButtonFav"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+
+                android:layout_weight="0.5"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_star_in_24">
+
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Favorites"
+                    android:layout_marginBottom="20dp"
+                    android:textColor="#1064BC" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Layout for List -->
+        <LinearLayout
+            android:id="@+id/listlayoutFav"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:background="@color/favBack"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameTabFav">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/gamesListFav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
