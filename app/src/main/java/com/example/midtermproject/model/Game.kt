@@ -1,12 +1,17 @@
 package com.example.midtermproject.model
 
-import android.graphics.Bitmap
+
+import com.squareup.moshi.Json
 
 data class Game(
-    val name: String,
-    val score: String,
-    val genre: String,
-    val description: String,
-    val gameImage: Int
+    @Json(name = "id") val id: Int,
+
+    @Json(name = "name") val name: String?,
+
+    @Json(name = "metacritic") val metacritic: Int?,
+
+    @Json(name = "genres") val genres: List<Genres>,
+    @Json(name = "description") val description: String,
+    @Json(name = "background_image") val background_image: String
 ) {
 }

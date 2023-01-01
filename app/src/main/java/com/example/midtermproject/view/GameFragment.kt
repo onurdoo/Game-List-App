@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.midtermproject.R
 import com.example.midtermproject.adapter.CustomAdapter
 import com.example.midtermproject.model.Game
@@ -59,7 +60,15 @@ class GameFragment : Fragment() {
         //recyclerView initialized
         val myRecyclerView = view.findViewById<RecyclerView>(R.id.gamesList)
         myRecyclerView.layoutManager = LinearLayoutManager(context)
+
         myRecyclerView.adapter = recyclerViewAdapter //recyclerView adapted bind
+
+        val  swipeRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.swipeR)
+
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.refreshhData()
+            swipeRefreshLayout.isRefreshing = false
+        }
         observeLiveData(myRecyclerView) // list elements initialized
 
 

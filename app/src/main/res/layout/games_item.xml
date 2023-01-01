@@ -16,19 +16,7 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
-            android:id="@+id/descGhost"
-            android:layout_width="1dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="188dp"
-            android:text="Acikalama"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/metacritic"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            app:layout_constraintVertical_bias="0.421">
 
-        </TextView>
 
         <!-- Game Image -->
         <ImageView

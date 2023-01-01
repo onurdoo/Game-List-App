@@ -1,17 +1,31 @@
 package com.example.midtermproject.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.midtermproject.R
 import com.example.midtermproject.model.Game
+import com.example.midtermproject.service.GamesAPIService
+import com.example.midtermproject.service.Responses
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.observers.DisposableSingleObserver
+import kotlin.math.log
+
 
 /* ViewModel for the GameFragment Class */
 class GameViewModel: ViewModel() {
 
     // All the Game data holds in a list
-    val games = MutableLiveData<List<Game>>()
-    //val gameErrMsg = MutableLiveData<Boolean>()
-   // val gameDownloading = MutableLiveData<Boolean>()
+    val games = MutableLiveData<List<Game>?>()
+
+    val gameErrMsg = MutableLiveData<Boolean>()
+    val gameDownloading = MutableLiveData<Boolean>()
+
+    private val gameApiService = GamesAPIService()
+    private val disposable = CompositeDisposable()
 
 
 
@@ -20,32 +34,32 @@ class GameViewModel: ViewModel() {
     * All data created manually with API Calls theese are will be restored and rearranged
     * */
     fun refreshhData(){
+        getDataFromInternet()
 
-        // Images created
-        val bitmapPortal = R.drawable.im_portal
-        val bitmapWitcher = R.drawable.im_witcher
-        val bitmapGta = R.drawable.im_gta
-        val bitmapL4d2 = R.drawable.im_l4
+    }
 
-        var aa = Game("Grand Theft Auto V", "96", "Action, shooter", "metacritic", bitmapGta)
-        var bb = Game("Portal 2","95","Action, puzzle","metacritic",bitmapPortal)
-        var cc = Game("The Witcher 3: Wild Hunt","89","Action, puzzle","metacritic",bitmapWitcher)
-        var dd = Game("Left 4 Dead 2","89","Action, puzzle","metacritic",bitmapL4d2)
-        var ee = Game("Grand Theft Auto V", "96", "Action, shooter", "metacritic", bitmapGta)
+    fun getDataFromInternet(){
+        gameDownloading.value = true
+        disposable.add(
+            gameApiService.getData().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<Responses>(){
+                    override fun onSuccess(t: Responses) {
 
+                        games.value = t.results
 
-        val gameList = arrayListOf(
-            aa,bb,cc,dd,ee
+                        Log.i("ALDI", "asdasdasd.value.toString()")
+                        gameDownloading.value = false
+                        gameErrMsg.value = false
+                    }
+
+                    override fun onError(e: Throwable) {
+                        gameDownloading.value = false
+                        gameErrMsg.value = true
+                        Log.i("HATA!!", gameErrMsg.value.toString())
+                    }
+
+                })
         )
 
-        //data list created
-        games.value = gameList
-        //gameErrMsg.value = false
-        //gameDownloading.value = false
-
-
-
-
-        // myRecyclerView.setOnClickListener { myRecyclerView.setBackgroundColor(getColor(R.color.aa))}
     }
 }

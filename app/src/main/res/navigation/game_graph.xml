@@ -15,7 +15,7 @@
             app:destination="@id/favoritesFragment" />
         <action
             android:id="@+id/action_gameFragment_to_descFragment"
-            app:destination="@id/descFragment" />
+            app:destination="@id/detailedFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -27,22 +27,19 @@
             app:destination="@id/gameFragment" />
         <action
             android:id="@+id/action_favoritesFragment_to_descFragment"
-            app:destination="@id/descFragment" />
+            app:destination="@id/detailedFragment" />
     </fragment>
     <fragment
-        android:id="@+id/descFragment"
-        android:name="com.example.midtermproject.view.DescFragment"
-        android:label="fragment_desc"
-        tools:layout="@layout/fragment_desc" >
+        android:id="@+id/detailedFragment"
+        android:name="com.example.midtermproject.view.DetailedFragment"
+        android:label="fragment_detailed"
+        tools:layout="@layout/fragment_detailed">
         <action
             android:id="@+id/action_descFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
         <action
             android:id="@+id/action_descFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
-        <argument
-            android:name="gameTitle"
-            app:argType="string" />
         <argument
             android:name="imageID"
             app:argType="integer" />

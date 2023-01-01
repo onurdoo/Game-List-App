@@ -23,15 +23,15 @@ class FavoriteViewModel: ViewModel() {
         // Images created
         var bitmapWitcher = R.drawable.im_witcher
         var bitmapGta = R.drawable.im_gta
-        var a = Game("Grand Theft Auto V", "96", "Action, shooter", "metacritic", bitmapGta)
-        var b = Game("The Witcher 3: Wild Hunt","89","Action, puzzle","metacritic",bitmapWitcher)
+      //  var a = Game(0,"Grand Theft Auto V", "96", "Action, shooter", "metacritic", "https://media.rawg.io/media/games/328/3283617cb7d75d67257fc58339188742.jpg")
+      //  var b = Game(1,"The Witcher 3: Wild Hunt","89","Action, puzzle","metacritic","https://media.rawg.io/media/games/328/3283617cb7d75d67257fc58339188742.jpg")
 
 
-        val favList = arrayListOf<Game>(
+        /*val favList = arrayListOf<Game>(
             a, b
         )
         //data list created
-        favorites.value = favList
+        favorites.value = favList */
     }
 
 }

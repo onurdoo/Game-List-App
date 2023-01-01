@@ -2,9 +2,8 @@ package com.example.midtermproject.view
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Im
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.midtermproject.R
+import com.example.midtermproject.util.createPlaceHolder
+import com.example.midtermproject.util.downloadImage
 import com.example.midtermproject.viewmodel.DetailedViewModel
 
 
@@ -23,10 +24,10 @@ import com.example.midtermproject.viewmodel.DetailedViewModel
 * For the present this class dont use the viewModel due to midterm project requirments
 * With API requests this whole class will be updated
 * */
-class DescFragment : Fragment() {
+class DetailedFragment : Fragment() {
     private lateinit var viewModel: DetailedViewModel //created view model field
-    private var gameImId = 0 // Image Id field
-    private var gameTitle = "" //Game Title field
+    private var gameId = 0 // Image Id field
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +39,7 @@ class DescFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_desc, container, false)
+        return inflater.inflate(R.layout.fragment_detailed, container, false)
     }
 
 
@@ -50,30 +51,30 @@ class DescFragment : Fragment() {
 
         //For the fragment replace button bind with view id
         val backButton = view.findViewById<LinearLayout>(R.id.backButton)
+        arguments?.let {
+            gameId = DetailedFragmentArgs.fromBundle(it).imageID
+
+
+
+        }
+
 
         // viewModel initialized
         viewModel = ViewModelProvider(this)[DetailedViewModel::class.java]
-        viewModel.getData()
+        viewModel.getData(gameId.toString())
 
 
 
         //Created arguments with action it recieved image and title data for the selected game
-        arguments?.let {
-            gameImId = DescFragmentArgs.fromBundle(it).imageID
-            gameTitle = DescFragmentArgs.fromBundle(it).gameTitle
-            println(gameImId) //data control
-
-        }
 
         //view binds
-        view.findViewById<TextView>(R.id.gameName).text = gameTitle
-        val imageBitmap = BitmapFactory.decodeResource(resources, gameImId)
+        observeLiveData()
 
 
         //image resized for the detailed page
-        val bitmapResized = Bitmap.createScaledBitmap(imageBitmap, 430, 291,false)
+       // val bitmapResized = Bitmap.createScaledBitmap(imageBitmap, 430, 291,false)
 
-        view.findViewById<ImageView>(R.id.detailedIm).setImageBitmap(bitmapResized)
+
 
 
 
@@ -81,11 +82,13 @@ class DescFragment : Fragment() {
 
         // with navigation framework fragment replacements are done
         backButton.setOnClickListener {
-            val action = DescFragmentDirections.actionDescFragmentToGameFragment() //action created
+            val action = DetailedFragmentDirections.actionDescFragmentToGameFragment() //action created
             Navigation.findNavController(it).navigate(action)
         }
 
     }
+
+
 
 
     //
@@ -95,9 +98,10 @@ class DescFragment : Fragment() {
             game?.let {
                 var gameName = view?.findViewById<TextView>(R.id.gameName)
                 var gameDesc = view?.findViewById<TextView>(R.id.gameDesc)
-
+                var gameImage = view?.findViewById<ImageView>(R.id.detailedIm)
                 gameName?.text = it.name
                 gameDesc?.text = it.description
+                gameImage?.downloadImage(it.background_image, createPlaceHolder(view?.context!!))
 
             }
 

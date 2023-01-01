@@ -10,11 +10,11 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.midtermproject.R
 import com.example.midtermproject.model.Game
+import com.example.midtermproject.util.createPlaceHolder
+import com.example.midtermproject.util.downloadImage
 import com.example.midtermproject.view.FavoritesFragmentDirections
 import com.example.midtermproject.view.GameFragmentDirections
-import com.squareup.picasso.Picasso
-import java.lang.reflect.Array.get
-import java.nio.file.Paths.get
+
 
 
 /*Almost the same as class CustomAdapter
@@ -32,7 +32,7 @@ class CustomAdapter2(val dataSet: ArrayList<Game>) :
         val name: TextView
         val score: TextView
         val genre: TextView
-        val desc: TextView
+
         val gameImage: ImageView
 
         init {
@@ -40,7 +40,7 @@ class CustomAdapter2(val dataSet: ArrayList<Game>) :
             name = view.findViewById(R.id.title)
             score = view.findViewById(R.id.metacriticPoint)
             genre = view.findViewById(R.id.Genre)
-            desc = view.findViewById(R.id.descGhost)
+
             gameImage = view.findViewById(R.id.gameImage)
         }
     }
@@ -60,25 +60,27 @@ class CustomAdapter2(val dataSet: ArrayList<Game>) :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.name.text = dataSet[position].name
-        viewHolder.score.text = dataSet[position].score
-        viewHolder.genre.text = dataSet[position].genre
-        viewHolder.desc.text = dataSet[position].description
-        viewHolder.gameImage.setImageDrawable(viewHolder.itemView.context.getDrawable(dataSet[position].gameImage))
+        viewHolder.score.text = dataSet[position].metacritic.toString()
+       // viewHolder.genre.text = dataSet[position].genre
+       // viewHolder.desc.text = dataSet[position].description
+        //viewHolder.gameImage.downloadImage(dataSet[position].gameImage, createPlaceHolder(viewHolder.itemView.context))
+        //viewHolder.gameImage.setImageDrawable(viewHolder.itemView.context.getDrawable(dataSet[position].gameImage))
 
 
         /* with navigation framework fragment replacements are done
         * For the clicking on the elements in the list this process done in adapter class
         */
-        viewHolder.itemView.setOnClickListener {
+        /*viewHolder.itemView.setOnClickListener {
             viewHolder.itemView.setBackgroundColor(Color.parseColor("#E0E0E0"))
             val action = FavoritesFragmentDirections.actionFavoritesFragmentToDescFragment(viewHolder.name.text.toString(),dataSet[position].gameImage)
             Navigation.findNavController(it).navigate(action)
-        }
+        }*/
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
+
     fun updateDataList(newList: List<Game>) {
         dataSet.clear()
         dataSet.addAll(newList)
