@@ -41,7 +41,13 @@
             android:id="@+id/action_descFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
         <argument
-            android:name="imageID"
+            android:name="gameID"
             app:argType="integer" />
+        <argument
+            android:name="imageURL"
+            app:argType="string" />
+        <argument
+            android:name="gameFlag"
+            app:argType="boolean" />
     </fragment>
 </navigation>

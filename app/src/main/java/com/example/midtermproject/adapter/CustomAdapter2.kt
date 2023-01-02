@@ -61,6 +61,14 @@ class CustomAdapter2(val dataSet: ArrayList<Game>) :
         // contents of the view with that element
         viewHolder.name.text = dataSet[position].name
         viewHolder.score.text = dataSet[position].metacritic.toString()
+        val l1 = arrayListOf<String>()
+        for(item in dataSet[position].genres){
+            l1.add(item.name!!)
+
+        }
+        viewHolder.genre.text = l1.joinToString(separator = ", ")
+        //viewHolder.desc.text = dataSet[position].description
+        viewHolder.gameImage.downloadImage(dataSet[position].background_image, createPlaceHolder(viewHolder.itemView.context))
        // viewHolder.genre.text = dataSet[position].genre
        // viewHolder.desc.text = dataSet[position].description
         //viewHolder.gameImage.downloadImage(dataSet[position].gameImage, createPlaceHolder(viewHolder.itemView.context))
@@ -70,13 +78,15 @@ class CustomAdapter2(val dataSet: ArrayList<Game>) :
         /* with navigation framework fragment replacements are done
         * For the clicking on the elements in the list this process done in adapter class
         */
-        /*viewHolder.itemView.setOnClickListener {
+        viewHolder.itemView.setOnClickListener {
             viewHolder.itemView.setBackgroundColor(Color.parseColor("#E0E0E0"))
-            val action = FavoritesFragmentDirections.actionFavoritesFragmentToDescFragment(viewHolder.name.text.toString(),dataSet[position].gameImage)
+            val action = FavoritesFragmentDirections.actionFavoritesFragmentToDescFragment(dataSet[position].id,dataSet[position].background_image,false)
             Navigation.findNavController(it).navigate(action)
-        }*/
+        }
+
 
     }
+
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size

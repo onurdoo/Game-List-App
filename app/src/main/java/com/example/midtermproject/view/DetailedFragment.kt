@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds.Im
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +16,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.midtermproject.R
+import com.example.midtermproject.model.Game
 import com.example.midtermproject.util.createPlaceHolder
 import com.example.midtermproject.util.downloadImage
 import com.example.midtermproject.viewmodel.DetailedViewModel
+import com.example.midtermproject.viewmodel.FavoriteViewModel
 
 
 /* View Class for Detailed Page
@@ -27,10 +30,13 @@ import com.example.midtermproject.viewmodel.DetailedViewModel
 class DetailedFragment : Fragment() {
     private lateinit var viewModel: DetailedViewModel //created view model field
     private var gameId = 0 // Image Id field
+    private var gameIm = "" // Image Id field
+    private var gameFlag = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
     }
 
@@ -48,12 +54,17 @@ class DetailedFragment : Fragment() {
     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        var gameImage1 = view?.findViewById<ImageView>(R.id.detailedIm)
         //For the fragment replace button bind with view id
         val backButton = view.findViewById<LinearLayout>(R.id.backButton)
-        arguments?.let {
-            gameId = DetailedFragmentArgs.fromBundle(it).imageID
+        val favButton = view.findViewById<LinearLayout>(R.id.addFav)
+        var a = view.findViewById<TextView>(R.id.favoriteText)
+        val singleton = FavoriteViewModel.FavList
 
+        arguments?.let {
+            gameId = DetailedFragmentArgs.fromBundle(it).gameID
+            gameIm = DetailedFragmentArgs.fromBundle(it).imageURL
+            gameFlag = DetailedFragmentArgs.fromBundle(it).gameFlag
 
 
         }
@@ -62,6 +73,11 @@ class DetailedFragment : Fragment() {
         // viewModel initialized
         viewModel = ViewModelProvider(this)[DetailedViewModel::class.java]
         viewModel.getData(gameId.toString())
+        gameImage1?.downloadImage(gameIm, createPlaceHolder(view?.context!!))
+        val game = viewModel.detGameLiveData.value
+        if(singleton.favorites.contains(game)){
+            view.findViewById<TextView>(R.id.favoriteText).setText("Favourited")
+        }
 
 
 
@@ -78,13 +94,33 @@ class DetailedFragment : Fragment() {
 
 
 
+        favButton.setOnClickListener{
+            val game = viewModel.detGameLiveData.value
+            if (!singleton.favorites.contains(game)){
+                val game = viewModel.detGameLiveData.value
+                singleton.favorites.add(game!!)
+                a.text = "Favourited"
+            }else{
+                singleton.favorites.remove(game)
+                a.text = "Favourite"
 
+            }
+
+        }
 
         // with navigation framework fragment replacements are done
         backButton.setOnClickListener {
-            val action = DetailedFragmentDirections.actionDescFragmentToGameFragment() //action created
-            Navigation.findNavController(it).navigate(action)
+            if (gameFlag){
+                val action = DetailedFragmentDirections.actionDescFragmentToGameFragment() //action created
+                Navigation.findNavController(it).navigate(action)
+            }else{
+                val action = DetailedFragmentDirections.actionDescFragmentToFavoritesFragment() //action created
+                Navigation.findNavController(it).navigate(action)
+            }
+
         }
+
+
 
     }
 
@@ -99,8 +135,11 @@ class DetailedFragment : Fragment() {
                 var gameName = view?.findViewById<TextView>(R.id.gameName)
                 var gameDesc = view?.findViewById<TextView>(R.id.gameDesc)
                 var gameImage = view?.findViewById<ImageView>(R.id.detailedIm)
+                val decoded: String = Html
+                    .fromHtml(it.description, Html.FROM_HTML_MODE_COMPACT)
+                    .toString()
                 gameName?.text = it.name
-                gameDesc?.text = it.description
+                gameDesc?.text = decoded
                 gameImage?.downloadImage(it.background_image, createPlaceHolder(view?.context!!))
 
             }

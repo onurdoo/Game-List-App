@@ -54,12 +54,12 @@ class CustomAdapter(val dataSet: ArrayList<Game>) :
         // contents of the view with that element
         viewHolder.name.text = dataSet[position].name
         viewHolder.score.text = dataSet[position].metacritic.toString()
-        var l1 = arrayListOf<String>()
+        val l1 = arrayListOf<String>()
         for(item in dataSet[position].genres){
             l1.add(item.name!!)
 
         }
-        viewHolder.genre.text = l1!!.joinToString(separator = ", ")
+        viewHolder.genre.text = l1.joinToString(separator = ", ")
         //viewHolder.desc.text = dataSet[position].description
         viewHolder.gameImage.downloadImage(dataSet[position].background_image, createPlaceHolder(viewHolder.itemView.context))
         //viewHolder.gameImage.setImageDrawable(viewHolder.itemView.context.getDrawable(dataSet[position].gameImage))
@@ -71,7 +71,7 @@ class CustomAdapter(val dataSet: ArrayList<Game>) :
         */
         viewHolder.itemView.setOnClickListener {
             viewHolder.itemView.setBackgroundColor(Color.parseColor("#E0E0E0"))
-            val action = GameFragmentDirections.actionGameFragmentToDescFragment(dataSet[position].id)
+            val action = GameFragmentDirections.actionGameFragmentToDescFragment(dataSet[position].id,dataSet[position].background_image,true)
             Navigation.findNavController(it).navigate(action)
         }
 

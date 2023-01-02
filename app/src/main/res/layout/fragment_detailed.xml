@@ -2,7 +2,8 @@
 
 <!-- UI for Detailed page -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -73,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text=" Games"
+            android:text=" Back"
             android:textAlignment="textEnd"
             android:textColor="#007AFF"
             android:textSize="16sp"
@@ -121,7 +122,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:gravity="right|bottom"
-        android:text="OYUN"
+        android:text=""
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"
