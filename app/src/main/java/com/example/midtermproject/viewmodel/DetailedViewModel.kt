@@ -25,7 +25,7 @@ class DetailedViewModel : ViewModel() {
     * */
 
 
-    fun getData(query:String) {
+    fun getData(query: String) {
 
         getDetDataFromInternet(query)
 
@@ -37,8 +37,9 @@ class DetailedViewModel : ViewModel() {
 
         gameDownloading.value = true
         disposable.add(
-            detGameApiService.getDetData(query).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<Game>(){
+            detGameApiService.getDetData(query).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<Game>() {
                     override fun onSuccess(t: Game) {
 
                         detGameLiveData.value = t

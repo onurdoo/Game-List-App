@@ -13,7 +13,6 @@ import com.example.midtermproject.model.Game
 import com.example.midtermproject.util.createPlaceHolder
 import com.example.midtermproject.util.downloadImage
 import com.example.midtermproject.view.FavoritesFragmentDirections
-import com.example.midtermproject.view.GameFragmentDirections
 
 
 
@@ -62,15 +61,18 @@ class CustomAdapter2(val dataSet: ArrayList<Game>) :
         viewHolder.name.text = dataSet[position].name
         viewHolder.score.text = dataSet[position].metacritic.toString()
         val l1 = arrayListOf<String>()
-        for(item in dataSet[position].genres){
+        for (item in dataSet[position].genres) {
             l1.add(item.name!!)
 
         }
         viewHolder.genre.text = l1.joinToString(separator = ", ")
         //viewHolder.desc.text = dataSet[position].description
-        viewHolder.gameImage.downloadImage(dataSet[position].background_image, createPlaceHolder(viewHolder.itemView.context))
-       // viewHolder.genre.text = dataSet[position].genre
-       // viewHolder.desc.text = dataSet[position].description
+        viewHolder.gameImage.downloadImage(
+            dataSet[position].background_image,
+            createPlaceHolder(viewHolder.itemView.context)
+        )
+        // viewHolder.genre.text = dataSet[position].genre
+        // viewHolder.desc.text = dataSet[position].description
         //viewHolder.gameImage.downloadImage(dataSet[position].gameImage, createPlaceHolder(viewHolder.itemView.context))
         //viewHolder.gameImage.setImageDrawable(viewHolder.itemView.context.getDrawable(dataSet[position].gameImage))
 
@@ -80,7 +82,11 @@ class CustomAdapter2(val dataSet: ArrayList<Game>) :
         */
         viewHolder.itemView.setOnClickListener {
             viewHolder.itemView.setBackgroundColor(Color.parseColor("#E0E0E0"))
-            val action = FavoritesFragmentDirections.actionFavoritesFragmentToDescFragment(dataSet[position].id,dataSet[position].background_image,false)
+            val action = FavoritesFragmentDirections.actionFavoritesFragmentToDescFragment(
+                dataSet[position].id,
+                dataSet[position].background_image,
+                false
+            )
             Navigation.findNavController(it).navigate(action)
         }
 

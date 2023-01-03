@@ -15,6 +15,7 @@
         android:backgroundTint="@color/divider">
 
         <!-- Page Title -->
+
         <TextView
             android:id="@+id/gameTabFav"
             android:layout_width="match_parent"

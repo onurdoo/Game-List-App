@@ -16,7 +16,7 @@ import com.example.midtermproject.util.downloadImage
 import com.example.midtermproject.view.GameFragmentDirections
 
 
-class CustomAdapter(val dataSet: ArrayList<Game>) :
+class CustomAdapter(var dataSet: ArrayList<Game>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     /**
@@ -55,15 +55,17 @@ class CustomAdapter(val dataSet: ArrayList<Game>) :
         viewHolder.name.text = dataSet[position].name
         viewHolder.score.text = dataSet[position].metacritic.toString()
         val l1 = arrayListOf<String>()
-        for(item in dataSet[position].genres){
+        for (item in dataSet[position].genres) {
             l1.add(item.name!!)
 
         }
         viewHolder.genre.text = l1.joinToString(separator = ", ")
         //viewHolder.desc.text = dataSet[position].description
-        viewHolder.gameImage.downloadImage(dataSet[position].background_image, createPlaceHolder(viewHolder.itemView.context))
+        viewHolder.gameImage.downloadImage(
+            dataSet[position].background_image,
+            createPlaceHolder(viewHolder.itemView.context)
+        )
         //viewHolder.gameImage.setImageDrawable(viewHolder.itemView.context.getDrawable(dataSet[position].gameImage))
-
 
 
         /* with navigation framework fragment replacements are done
@@ -71,7 +73,11 @@ class CustomAdapter(val dataSet: ArrayList<Game>) :
         */
         viewHolder.itemView.setOnClickListener {
             viewHolder.itemView.setBackgroundColor(Color.parseColor("#E0E0E0"))
-            val action = GameFragmentDirections.actionGameFragmentToDescFragment(dataSet[position].id,dataSet[position].background_image,true)
+            val action = GameFragmentDirections.actionGameFragmentToDescFragment(
+                dataSet[position].id,
+                dataSet[position].background_image,
+                true
+            )
             Navigation.findNavController(it).navigate(action)
         }
 
@@ -84,6 +90,15 @@ class CustomAdapter(val dataSet: ArrayList<Game>) :
     fun updateDataList(newList: List<Game>) {
         dataSet.clear()
         dataSet.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+    fun filterList(filterlist: ArrayList<Game>) {
+        // below line is to add our filtered
+        // list in our course array list.
+        dataSet = filterlist
+        // below line is to notify our adapter
+        // as change in recycler view data.
         notifyDataSetChanged()
     }
 

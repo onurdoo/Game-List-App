@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <!-- Page Title -->
+
         <TextView
             android:id="@+id/gameTab"
             android:layout_width="match_parent"
@@ -49,8 +50,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:queryHint="Search for the games"
                 android:background="@drawable/rounded_search_bar"
-
+                android:iconifiedByDefault="false"
                 app:layout_constraintTop_toBottomOf="@+id/gameTab"
                 tools:layout_editor_absoluteX="9dp" />
         </LinearLayout>

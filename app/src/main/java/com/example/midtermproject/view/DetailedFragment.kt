@@ -1,9 +1,9 @@
 package com.example.midtermproject.view
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Im
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +16,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.midtermproject.R
-import com.example.midtermproject.model.Game
 import com.example.midtermproject.util.createPlaceHolder
 import com.example.midtermproject.util.downloadImage
 import com.example.midtermproject.viewmodel.DetailedViewModel
@@ -58,7 +57,9 @@ class DetailedFragment : Fragment() {
         //For the fragment replace button bind with view id
         val backButton = view.findViewById<LinearLayout>(R.id.backButton)
         val favButton = view.findViewById<LinearLayout>(R.id.addFav)
-        var a = view.findViewById<TextView>(R.id.favoriteText)
+        val redditButton = view.findViewById<LinearLayout>(R.id.reddit)
+        val websiteButton = view.findViewById<LinearLayout>(R.id.website)
+        var favText = view.findViewById<TextView>(R.id.favoriteText)
         val singleton = FavoriteViewModel.FavList
 
         arguments?.let {
@@ -75,34 +76,25 @@ class DetailedFragment : Fragment() {
         viewModel.getData(gameId.toString())
         gameImage1?.downloadImage(gameIm, createPlaceHolder(view?.context!!))
         val game = viewModel.detGameLiveData.value
-        if(singleton.favorites.contains(game)){
+        if (singleton.favorites.contains(game)) {
             view.findViewById<TextView>(R.id.favoriteText).setText("Favourited")
         }
 
 
-
-        //Created arguments with action it recieved image and title data for the selected game
-
-        //view binds
         observeLiveData()
 
 
-        //image resized for the detailed page
-       // val bitmapResized = Bitmap.createScaledBitmap(imageBitmap, 430, 291,false)
 
 
-
-
-
-        favButton.setOnClickListener{
+        favButton.setOnClickListener {
             val game = viewModel.detGameLiveData.value
-            if (!singleton.favorites.contains(game)){
+            if (!singleton.favorites.contains(game)) {
                 val game = viewModel.detGameLiveData.value
                 singleton.favorites.add(game!!)
-                a.text = "Favourited"
-            }else{
+                favText.text = "Favourited"
+            } else {
                 singleton.favorites.remove(game)
-                a.text = "Favourite"
+                favText.text = "Favourite"
 
             }
 
@@ -110,23 +102,32 @@ class DetailedFragment : Fragment() {
 
         // with navigation framework fragment replacements are done
         backButton.setOnClickListener {
-            if (gameFlag){
-                val action = DetailedFragmentDirections.actionDescFragmentToGameFragment() //action created
+            if (gameFlag) {
+                val action =
+                    DetailedFragmentDirections.actionDescFragmentToGameFragment() //action created
                 Navigation.findNavController(it).navigate(action)
-            }else{
-                val action = DetailedFragmentDirections.actionDescFragmentToFavoritesFragment() //action created
+            } else {
+                val action =
+                    DetailedFragmentDirections.actionDescFragmentToFavoritesFragment() //action created
                 Navigation.findNavController(it).navigate(action)
             }
 
         }
 
+        redditButton.setOnClickListener{
+            openBrowser()
+        }
+        websiteButton.setOnClickListener{
+            openBrowser()
+        }
 
 
     }
 
-
-
-
+    fun openBrowser(){
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
+        startActivity(browserIntent)
+    }
     //
     fun observeLiveData() {
 
@@ -146,19 +147,5 @@ class DetailedFragment : Fragment() {
 
         })
     }
-
-    /*
-    fun scaleImage(image: Drawable?, scaleFactor: Float): Drawable? {
-        var image = image
-        if (image == null || image !is BitmapDrawable) {
-            return image
-        }
-        val b = image.bitmap
-        val sizeX = Math.round(image.getIntrinsicWidth() * scaleFactor)
-        val sizeY = Math.round(image.getIntrinsicHeight() * scaleFactor)
-        val bitmapResized = Bitmap.createScaledBitmap(b, sizeX, sizeY, false)
-        image = BitmapDrawable(resources, bitmapResized)
-        return image
-    }*/
 
 }

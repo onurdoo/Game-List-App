@@ -1,6 +1,6 @@
 package com.example.midtermproject.view
 
-import android.content.Context
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,27 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.midtermproject.R
-
 import com.example.midtermproject.adapter.CustomAdapter2
 import com.example.midtermproject.model.Game
-
 import com.example.midtermproject.viewmodel.FavoriteViewModel
-import com.example.midtermproject.viewmodel.GameViewModel
 
 
 // View Class for 2nd Page
 class FavoritesFragment : Fragment() {
-     var game : Game? = null
-   // private lateinit var viewModel: FavoriteViewModel
+    var game: Game? = null
+
+    // private lateinit var viewModel: FavoriteViewModel
     private val recyclerViewAdapter = CustomAdapter2(arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,21 +61,53 @@ class FavoritesFragment : Fragment() {
         myRecyclerView.adapter = recyclerViewAdapter // list elements initialized
         recyclerViewAdapter.updateDataList(singleton.favorites)
         myRecyclerView.visibility = View.VISIBLE
-        val count = recyclerViewAdapter.itemCount
-        if (count!= 0){
-            view.findViewById<TextView>(R.id.gameTabFav).setText("Favourites($count)")
+
+        val swipeToDeleteCallBack = object : SwipeToDeleteCallBack() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val builder = context?.let { AlertDialog.Builder(it) }
+                builder!!.setMessage("Are you sure you want to Delete?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes") { dialog, id ->
+                        // Delete selected note from database
+                        val position = viewHolder.adapterPosition
+                        singleton.favorites.removeAt(position)
+                        recyclerViewAdapter.notifyItemRemoved(position)
+                        recyclerViewAdapter.updateDataList(singleton.favorites)
+                        setTitle()
+                    }
+                    .setNegativeButton("No") { dialog, id ->
+                        // Dismiss the dialog
+                        dialog.dismiss()
+                        recyclerViewAdapter.updateDataList(singleton.favorites)
+
+                    }
+                val alert = builder.create()
+                alert.show()
+
+
+            }
+
         }
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
+        itemTouchHelper.attachToRecyclerView(myRecyclerView)
 
-
-
-
-
+        setTitle()
 
 
         // with navigation framework fragment replacements are done
         gameButton.setOnClickListener {
-            val action = FavoritesFragmentDirections.actionFavoritesFragmentToGameFragment()// created an action
+            val action =
+                FavoritesFragmentDirections.actionFavoritesFragmentToGameFragment()// created an action
             Navigation.findNavController(it).navigate(action)
+        }
+    }
+
+    fun setTitle() {
+        val count = recyclerViewAdapter.itemCount
+        if (count != 0) {
+            view?.findViewById<TextView>(R.id.gameTabFav)?.setText("Favourites ($count)")
+        } else if (count == 0) {
+            view?.findViewById<TextView>(R.id.gameTabFav)?.setText("Favourites")
         }
     }
 

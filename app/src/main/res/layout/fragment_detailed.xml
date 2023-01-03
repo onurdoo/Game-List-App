@@ -189,6 +189,7 @@
         android:id="@+id/reddit"
         android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:clickable="true"
         app:layout_constraintTop_toBottomOf="@+id/desclinear"
         tools:layout_editor_absoluteX="0dp">
 
@@ -221,6 +222,7 @@
         android:id="@+id/website"
         android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reddit"
         app:layout_constraintVertical_bias="0.0"
